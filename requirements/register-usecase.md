@@ -1,8 +1,7 @@
 # Usecase - register
 
-[] - Um usuário deve conseguir se registrar utilizando seus dados
-[] - O id do usuário deve ser retornado
-[] - O id deve ser gerado automaticamente
+[x] - Um usuário deve conseguir se registrar utilizando seus dados
+[x] - O id deve ser gerado automaticamente
 [] - O email deve ser unico
 
 # Input - usuário

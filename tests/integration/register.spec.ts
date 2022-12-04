@@ -1,4 +1,4 @@
-import { RegisterUser } from '@/application/usecases/register-user'
+import { UserRegister } from '@/application/usecases/user-register'
 import { UsersRepositoryMemory } from '@/infra/repositories/memory'
 import { GenerateCryptoId } from '@/infra/gateways'
 
@@ -11,7 +11,7 @@ test('Deve criar um usuário e retornar a quantidade correta no repositório', a
     password: '123'
   }
   const generateIdGateway = new GenerateCryptoId()
-  const registerUser = new RegisterUser(usersRepository, generateIdGateway)
+  const registerUser = new UserRegister(usersRepository, generateIdGateway)
   registerUser.execute(sut)
   const users = await usersRepository.findAll()
   expect(users.length).toBe(1)

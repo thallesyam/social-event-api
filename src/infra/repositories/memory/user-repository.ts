@@ -1,4 +1,5 @@
 import { User } from '@/domain/entities'
+import { UserAlreadyRegister } from '@/domain/errors'
 import { UserRepository } from '@/domain/repositories'
 
 export class UsersRepositoryMemory implements UserRepository {
@@ -10,7 +11,15 @@ export class UsersRepositoryMemory implements UserRepository {
     return this.users
   }
 
+  async findOne(userId: string): Promise<User | undefined> {
+    return this.users.find((user) => user.userId === userId)
+  }
+
   async save(user: User): Promise<void> {
+    const hasUserWithSameEmail = this.users.find(
+      (data) => data.email === user.email
+    )
+    if (hasUserWithSameEmail) throw new UserAlreadyRegister()
     this.users.push(user)
   }
 }

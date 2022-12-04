@@ -1,4 +1,4 @@
-import { InvalidUser } from '../error'
+import { InvalidUser } from '../errors'
 
 export class User {
   private isPayingUser = false

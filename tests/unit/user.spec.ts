@@ -1,5 +1,5 @@
-import { User } from '@/domain/entity'
-import { InvalidUser } from '@/domain/error'
+import { User } from '@/domain/entities'
+import { InvalidUser } from '@/domain/errors'
 
 test('Deve criar um usuário com os dados corretos', () => {
   const sut = new User(

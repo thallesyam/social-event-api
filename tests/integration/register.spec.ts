@@ -1,15 +1,18 @@
-import { User } from '@/domain/entities'
+import { RegisterUser } from '@/application/usecases/register-user'
 import { UsersRepositoryMemory } from '@/infra/repositories/memory'
+import { GenerateCryptoId } from '@/infra/gateways'
 
-test('Deve criar um usuário e salva-lo', async () => {
-  const sut = new User(
-    'Thalles Ian',
-    'thallesyam@gmail.com',
-    'fake-image',
-    '123'
-  )
+test('Deve criar um usuário e retornar a quantidade correta no repositório', async () => {
   const usersRepository = new UsersRepositoryMemory()
-  await usersRepository.save(sut)
+  const sut = {
+    name: 'Thalles Ian',
+    email: 'thallesyam@gmail.com',
+    image: 'fake-image',
+    password: '123'
+  }
+  const generateIdGateway = new GenerateCryptoId()
+  const registerUser = new RegisterUser(usersRepository, generateIdGateway)
+  registerUser.execute(sut)
   const users = await usersRepository.findAll()
   expect(users.length).toBe(1)
 })

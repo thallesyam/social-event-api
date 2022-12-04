@@ -3,6 +3,7 @@ import { InvalidUser } from '@/domain/errors'
 
 test('Deve criar um usuário com os dados corretos', () => {
   const sut = new User(
+    '1',
     'Thalles Ian',
     'thallesyam@gmail.com',
     'fake-image',
@@ -13,11 +14,14 @@ test('Deve criar um usuário com os dados corretos', () => {
 })
 
 test('Deve tentar criar um usuário com os dados incorretos', () => {
-  expect(() => new User('', '', 'fake-image', '123')).toThrowError(InvalidUser)
+  expect(() => new User('1', '', '', 'fake-image', '123')).toThrowError(
+    InvalidUser
+  )
 })
 
 test('Deve validar se o usuário é um pagante', () => {
   const sut = new User(
+    '1',
     'Thalles Ian',
     'thallesyam@gmail.com',
     'fake-image',
@@ -28,6 +32,7 @@ test('Deve validar se o usuário é um pagante', () => {
 
 test('Deve setar o usuário como um pagante', () => {
   const sut = new User(
+    '1',
     'Thalles Ian',
     'thallesyam@gmail.com',
     'fake-image',

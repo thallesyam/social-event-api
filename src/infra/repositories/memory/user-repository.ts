@@ -1,5 +1,6 @@
 import { User } from '@/domain/entities'
 import { UserAlreadyRegister } from '@/domain/errors'
+import { UserNotFound } from '@/domain/errors/user-not-found'
 import { UserRepository } from '@/domain/repositories'
 
 export class UsersRepositoryMemory implements UserRepository {
@@ -13,6 +14,17 @@ export class UsersRepositoryMemory implements UserRepository {
 
   async findOneById(userId: string): Promise<User | undefined> {
     return this.users.find((user) => user.userId === userId)
+  }
+
+  async findByEmailAndPassword(
+    email: string,
+    password: string
+  ): Promise<User | undefined> {
+    const user = this.users.find(
+      (user) => user.email === email && user.password === password
+    )
+    if (!user) throw new UserNotFound()
+    return user
   }
 
   async save(user: User): Promise<void> {

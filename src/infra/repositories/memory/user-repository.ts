@@ -11,7 +11,7 @@ export class UsersRepositoryMemory implements UserRepository {
     return this.users
   }
 
-  async findOne(userId: string): Promise<User | undefined> {
+  async findOneById(userId: string): Promise<User | undefined> {
     return this.users.find((user) => user.userId === userId)
   }
 

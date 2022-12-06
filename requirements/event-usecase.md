@@ -1,6 +1,6 @@
 # Usecase - Event
 
-[] - Um usuário autenticado pode criar um evento que terá os seguintes dados
+[] - Um usuário autenticado pode criar um evento que terá os seguintes dados (linha 10 - 28)
 [] - Um usuário que não for administrador não pode ter mais de um evento aberto
 [] - Um usuário administrador pode criar quantos eventos desejar
 [] - Um usuário pode se inscrever em um evento aberto (logado ou como convidado)

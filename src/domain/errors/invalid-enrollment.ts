@@ -1,8 +1,8 @@
-export class InvalidSubscription extends Error {
+export class InvalidEnrollment extends Error {
   constructor() {
     super(
       'Ocorreu um erro na inscrição, verifique se os dados do evento e do usuário foram corretamente preenchidos'
     )
-    this.name = 'InvalidSubscription'
+    this.name = 'InvalidEnrollment'
   }
 }

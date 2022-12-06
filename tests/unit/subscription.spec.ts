@@ -1,12 +1,12 @@
-import { Subscription } from '@/domain/entities/subscription'
-import { InvalidSubscription } from '@/domain/errors'
+import { Enrollment } from '@/domain/entities/enrollment'
+import { InvalidEnrollment } from '@/domain/errors'
 
 test('Deve criar uma inscrição de um evento com uma lista de usuários', () => {
-  const sut = new Subscription('1')
+  const sut = new Enrollment('1')
   expect(sut.eventId).toBe('1')
-  expect(sut.subscribers.length).toBe(0)
+  expect(sut.enrollments.length).toBe(0)
 })
 
 test('Deve criar uma inscrição de um evento com uma lista de usuários', () => {
-  expect(() => new Subscription('')).toThrowError(InvalidSubscription)
+  expect(() => new Enrollment('')).toThrowError(InvalidEnrollment)
 })

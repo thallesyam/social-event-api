@@ -1,7 +1,7 @@
 import { UserAuthentication } from '@/application/usecases/user-authentication'
 import { User } from '@/domain/entities'
-import { UserNotFound } from '@/domain/errors/user-not-found'
-import { GenerateToken } from '@/infra/gateways/generate-token'
+import { UserNotFound } from '@/domain/errors'
+import { GenerateToken } from '@/infra/gateways'
 import { UsersRepositoryMemory } from '@/infra/repositories/memory'
 
 test('Deve se autenticar utilizando email e senha', async () => {

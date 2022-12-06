@@ -4,8 +4,9 @@
 [x] - Um usuário que não for administrador não pode ter mais de um evento aberto
 [x] - Um usuário administrador pode criar quantos eventos desejar
 [x] - Um usuário pode se inscrever em um evento aberto (logado ou como convidado)
-[] - Um usuário logado pode ter acesso a todos os seus eventos criados
-[] - Um usuário logado pode ter acesso a todos os seus eventos como participante
+[x] - Um usuário logado pode ter acesso a todos os seus eventos criados
+[x] - Um usuário logado pode ter acesso a todos os seus eventos como participante
+[] - Um evento deve conseguir retornar todos os usuários inscritos nele
 
 ## Obrigatórios:
 

@@ -17,7 +17,7 @@ export class EventRepositoryMemory implements EventRepository {
     return event
   }
 
-  async findOneByUserId(userId: string): Promise<Event[]> {
+  async findByUserId(userId: string): Promise<Event[]> {
     const event = this.events.filter((event) => event.ownerId === userId)
     return event
   }

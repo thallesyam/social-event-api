@@ -13,7 +13,7 @@ export class EventCreate {
   async execute(input: Input): Promise<void> {
     const eventId = await this.generateIdGateway.generate()
     const user = await this.userRepository.findOneById(input.ownerId)
-    const events = await this.eventRepository.findOneByUserId(user.userId)
+    const events = await this.eventRepository.findByUserId(user.userId)
 
     if (!user.getIsPayingUser() && !!events.length) {
       throw new UserNotPermission()

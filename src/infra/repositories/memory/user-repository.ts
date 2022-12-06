@@ -3,7 +3,7 @@ import { UserAlreadyRegister } from '@/domain/errors'
 import { UserNotFound, UserIdNotFound } from '@/domain/errors'
 import { UserRepository } from '@/domain/repositories'
 
-export class UsersRepositoryMemory implements UserRepository {
+export class UserRepositoryMemory implements UserRepository {
   private users: User[] = []
 
   constructor() {}

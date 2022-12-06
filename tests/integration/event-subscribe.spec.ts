@@ -1,9 +1,11 @@
 import { EventSubscribe } from '@/application/usecases/event-subscribe'
 import { Event, User } from '@/domain/entities'
 import { GenerateCryptoId } from '@/infra/gateways'
-import { UsersRepositoryMemory } from '@/infra/repositories/memory'
-import { EventRepositoryMemory } from '@/infra/repositories/memory'
-import { EnrollmentRepositoryMemory } from '@/infra/repositories/memory/enrollment-repository'
+import {
+  UsersRepositoryMemory,
+  EventRepositoryMemory,
+  EnrollmentRepositoryMemory
+} from '@/infra/repositories/memory'
 
 test('Deve realizar uma inscrição com um usuário e evento válido', async () => {
   const event = new Event(

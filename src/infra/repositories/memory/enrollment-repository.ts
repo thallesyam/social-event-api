@@ -22,7 +22,7 @@ export class EnrollmentRepositoryMemory implements EnrollmentRepository {
     if (!enrollment) throw new InvalidEnrollment()
     console.log(enrollment)
 
-    enrollment.enrollments.push(userId)
+    enrollment.subscriptions.push(userId)
   }
 
   async findAll(): Promise<Enrollment[]> {

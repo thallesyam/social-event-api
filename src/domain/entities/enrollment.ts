@@ -1,7 +1,7 @@
-import { InvalidEnrollment } from '../errors'
+import { InvalidEnrollment } from '@/domain/errors'
 
 export class Enrollment {
-  enrollments: string[] = []
+  subscriptions: string[] = []
 
   constructor(
     readonly enrollmentId: string,

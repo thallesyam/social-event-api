@@ -1,4 +1,4 @@
-import { Enrollment } from '../entities/enrollment'
+import { Enrollment } from '@/domain/entities'
 
 export interface EnrollmentRepository {
   findAll(): Promise<Enrollment[]>

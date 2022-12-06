@@ -1,4 +1,4 @@
-import { User } from '../entities'
+import { User } from '@/domain/entities'
 
 export interface UserRepository {
   findAll(): Promise<User[]>

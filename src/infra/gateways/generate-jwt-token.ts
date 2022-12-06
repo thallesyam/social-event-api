@@ -3,7 +3,7 @@ import { GenerateTokenGateway } from '@/application/gateways'
 
 const JWT_TOKEN = 'event-management-server'
 
-export class GenerateToken implements GenerateTokenGateway {
+export class GenerateJwtToken implements GenerateTokenGateway {
   async sign(
     payload: any,
     options?: { expiresIn: string } | undefined

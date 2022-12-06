@@ -1,4 +1,4 @@
-import { InvalidEvent } from '../errors'
+import { InvalidEvent } from '@/domain/errors'
 
 export class Event {
   readonly createdAt = new Date()

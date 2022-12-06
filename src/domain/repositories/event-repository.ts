@@ -1,4 +1,4 @@
-import { Event } from '../entities'
+import { Event } from '@/domain/entities'
 
 export interface EventRepository {
   findAll(): Promise<Event[]>

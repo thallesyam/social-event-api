@@ -1,4 +1,4 @@
-import { EventCreate } from '@/application/usecases/event-create'
+import { EventCreate } from '@/application/usecases'
 import { GenerateCryptoId } from '@/infra/gateways'
 import { EventRepositoryMemory } from '@/infra/repositories/memory'
 

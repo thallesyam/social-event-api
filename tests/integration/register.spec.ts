@@ -1,4 +1,4 @@
-import { UserRegister } from '@/application/usecases/user-register'
+import { UserRegister } from '@/application/usecases'
 import { UsersRepositoryMemory } from '@/infra/repositories/memory'
 import { GenerateCryptoId } from '@/infra/gateways'
 import { UserAlreadyRegister } from '@/domain/errors'

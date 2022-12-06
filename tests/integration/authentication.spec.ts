@@ -1,7 +1,7 @@
-import { UserAuthentication } from '@/application/usecases/user-authentication'
+import { UserAuthentication } from '@/application/usecases'
 import { User } from '@/domain/entities'
 import { UserNotFound } from '@/domain/errors'
-import { GenerateToken } from '@/infra/gateways'
+import { GenerateJwtToken } from '@/infra/gateways'
 import { UsersRepositoryMemory } from '@/infra/repositories/memory'
 
 test('Deve se autenticar utilizando email e senha', async () => {
@@ -13,7 +13,7 @@ test('Deve se autenticar utilizando email e senha', async () => {
     '123'
   )
   const usersRepository = new UsersRepositoryMemory()
-  const generateTokenGateway = new GenerateToken()
+  const generateTokenGateway = new GenerateJwtToken()
   await usersRepository.save(user)
   const sut = new UserAuthentication(usersRepository, generateTokenGateway)
   const input = {
@@ -33,7 +33,7 @@ test('Deve tentar se autenticar utilizando email e senha inválidos', async () =
     '123'
   )
   const usersRepository = new UsersRepositoryMemory()
-  const generateTokenGateway = new GenerateToken()
+  const generateTokenGateway = new GenerateJwtToken()
   await usersRepository.save(user)
   const sut = new UserAuthentication(usersRepository, generateTokenGateway)
   const input = {

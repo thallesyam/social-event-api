@@ -11,6 +11,7 @@ test('Deve criar um evento com os dados corretos', () => {
     '123'
   )
   const sut = new Event(
+    '1',
     user.userId,
     'Aula sobre typescript',
     'Aula voltada para enterder o básico da sintaxe typescript',
@@ -35,6 +36,7 @@ test('Deve criar um evento na modalidade remota', () => {
     '123'
   )
   const sut = new Event(
+    '1',
     user.userId,
     'Aula sobre typescript',
     'Aula voltada para enterder o básico da sintaxe typescript',
@@ -55,6 +57,7 @@ test('Deve criar um evento com um usuário inscrito', () => {
     '123'
   )
   const sut = new Event(
+    '1',
     user.userId,
     'Aula sobre typescript',
     'Aula voltada para enterder o básico da sintaxe typescript',
@@ -80,6 +83,7 @@ test('Deve tentar criar um evento com os dados incorretos', () => {
   expect(
     () =>
       new Event(
+        '1',
         user.userId,
         '',
         'Aula voltada para enterder o básico da sintaxe typescript',

@@ -20,8 +20,6 @@ export class EnrollmentRepositoryMemory implements EnrollmentRepository {
       (event) => event.eventId === eventId
     )
     if (!enrollment) throw new InvalidEnrollment()
-    console.log(enrollment)
-
     enrollment.subscriptions.push(userId)
   }
 

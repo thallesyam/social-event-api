@@ -17,6 +17,7 @@ export class EventSubscribe {
   async execute(input: Input): Promise<void> {
     const enrollmentId = await this.generateIdGateway.generate()
     const event = await this.eventRepository.findOneById(input.eventId)
+    const user = await this.userRepository.findOneById(input.subscriberId)
     const enrollmentHasExists = await this.enrollmentRepository.findByEventId(
       event.eventId
     )
@@ -29,7 +30,7 @@ export class EventSubscribe {
 
     await this.enrollmentRepository.updateSubscribers(
       event.eventId,
-      input.subscriberId
+      user.userId
     )
   }
 }

@@ -13,7 +13,6 @@ export class EventCreate {
 
     const event = new Event(
       eventId,
-      input.ownerId,
       input.eventName,
       input.description,
       input.eventDate,
@@ -30,7 +29,6 @@ export class EventCreate {
 }
 
 type Input = {
-  ownerId: string
   eventName: string
   description: string
   eventDate: Date

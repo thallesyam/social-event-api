@@ -1,21 +1,12 @@
 import { EventCreate } from '@/application/usecases/event-create'
-import { User } from '@/domain/entities'
 import { GenerateCryptoId } from '@/infra/gateways'
 import { EventRepositoryMemory } from '@/infra/repositories/memory/event-repository'
 
 test('Deve criar um evento com um usuário válido', async () => {
-  const user = new User(
-    '1',
-    'Thalles Ian',
-    'thallesyam@gmail.com',
-    'fake-image',
-    '123'
-  )
   const eventRepository = new EventRepositoryMemory()
   const generateIdGateway = new GenerateCryptoId()
   const sut = new EventCreate(eventRepository, generateIdGateway)
   const input = {
-    ownerId: user.userId,
     eventName: 'Aula sobre typescript',
     description: 'Aula voltada para enterder o básico da sintaxe typescript',
     eventDate: new Date('2022-12-06T12:00:00'),

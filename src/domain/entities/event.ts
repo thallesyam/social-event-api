@@ -1,12 +1,10 @@
 import { InvalidEvent } from '../errors'
 
 export class Event {
-  private subscribers: string[] = []
   readonly createdAt = new Date()
 
   constructor(
     readonly eventId: string,
-    readonly ownerId: string,
     readonly eventName: string,
     readonly description: string,
     readonly eventDate: Date,
@@ -17,23 +15,8 @@ export class Event {
     readonly closureDate?: Date,
     readonly additionalInfo?: string
   ) {
-    if (
-      !ownerId ||
-      !eventName ||
-      !description ||
-      !eventDate ||
-      !paymentKey ||
-      !price
-    ) {
+    if (!eventName || !description || !eventDate || !paymentKey || !price) {
       throw new InvalidEvent()
     }
-  }
-
-  getSubscribers() {
-    return this.subscribers
-  }
-
-  setSubscribers(userId: string) {
-    return this.subscribers.push(userId)
   }
 }

@@ -8,8 +8,23 @@ import {
 } from '@/infra/repositories/memory'
 
 test('Deve realizar uma inscrição com um usuário e evento válido', async () => {
+  const owner = new User(
+    '1',
+    'Thalles Ian',
+    'thallesyam@gmail.com',
+    'fake-image',
+    '123'
+  )
+  const subscriber = new User(
+    '2',
+    'Akin',
+    'akin@gmail.com',
+    'fake-image',
+    '123'
+  )
   const event = new Event(
     '1',
+    owner.userId,
     'Aula sobre typescript',
     'Aula voltada para enterder o básico da sintaxe typescript',
     new Date('2022-12-06T12:00:00'),
@@ -18,18 +33,12 @@ test('Deve realizar uma inscrição com um usuário e evento válido', async () 
     'onSite',
     'Rua Francisco da cunha'
   )
-  const user = new User(
-    '1',
-    'Thalles Ian',
-    'thallesyam@gmail.com',
-    'fake-image',
-    '123'
-  )
   const generateIdGateway = new GenerateCryptoId()
   const eventRepository = new EventRepositoryMemory()
   const usersRepository = new UsersRepositoryMemory()
   const enrollmentRepository = new EnrollmentRepositoryMemory()
-  await usersRepository.save(user)
+  await usersRepository.save(owner)
+  await usersRepository.save(subscriber)
   await eventRepository.save(event)
   const sut = new EventSubscribe(
     eventRepository,
@@ -39,7 +48,7 @@ test('Deve realizar uma inscrição com um usuário e evento válido', async () 
   )
 
   const input = {
-    ownerId: user.userId,
+    subscriberId: subscriber.userId,
     eventId: event.eventId
   }
   await sut.execute(input)

@@ -38,6 +38,6 @@ test('Deve setar o usuário como um pagante', () => {
     'fake-image',
     '123'
   )
-  sut.setIsPayingUser(true)
+  sut.setIsPayingUser()
   expect(sut.getIsPayingUser()).toBe(true)
 })

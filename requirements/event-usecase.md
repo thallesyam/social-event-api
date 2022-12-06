@@ -6,7 +6,7 @@
 [x] - Um usuário pode se inscrever em um evento aberto (logado ou como convidado)
 [x] - Um usuário logado pode ter acesso a todos os seus eventos criados
 [x] - Um usuário logado pode ter acesso a todos os seus eventos como participante
-[] - Um evento deve conseguir retornar todos os usuários inscritos nele
+[x] - Um evento deve conseguir retornar todos os usuários inscritos nele
 
 ## Obrigatórios:
 

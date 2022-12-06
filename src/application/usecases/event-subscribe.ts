@@ -25,7 +25,6 @@ export class EventSubscribe {
       await this.enrollmentRepository.save(
         new Enrollment(enrollmentId, event.eventId)
       )
-      return
     }
 
     await this.enrollmentRepository.updateSubscribers(

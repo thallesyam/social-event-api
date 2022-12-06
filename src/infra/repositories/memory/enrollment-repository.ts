@@ -7,6 +7,14 @@ export class EnrollmentRepositoryMemory implements EnrollmentRepository {
 
   constructor() {}
 
+  async findBySubscriberId(userId: string): Promise<Enrollment[]> {
+    const subscriptions = this.enrollments.filter((event) => {
+      return event.subscriptions.includes(userId)
+    })
+
+    return subscriptions
+  }
+
   async findByEventId(eventId: string): Promise<Enrollment | undefined> {
     const enrollment = this.enrollments.find(
       (event) => event.eventId === eventId
@@ -20,6 +28,8 @@ export class EnrollmentRepositoryMemory implements EnrollmentRepository {
       (event) => event.eventId === eventId
     )
     if (!enrollment) throw new InvalidEnrollment()
+    const userAlreadyBeenEnrollment = enrollment.subscriptions.includes(userId)
+    if (userAlreadyBeenEnrollment) throw new InvalidEnrollment()
     enrollment.subscriptions.push(userId)
   }
 

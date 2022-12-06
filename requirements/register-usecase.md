@@ -7,11 +7,12 @@
 # Input - usuário
 
 - nome
-- descrição
-- chave pix
 - imagem
 - o usuário tem acesso para criar eventos
 - email
 - senha
-- eventos
+- eventos_criados
+- eventos_participando
+- following
+- followers
 - data de criação

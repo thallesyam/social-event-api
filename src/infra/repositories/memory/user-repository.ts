@@ -1,6 +1,6 @@
 import { User } from '@/domain/entities'
 import { UserAlreadyRegister } from '@/domain/errors'
-import { UserNotFound } from '@/domain/errors/user-not-found'
+import { UserNotFound } from '@/domain/errors'
 import { UserRepository } from '@/domain/repositories'
 
 export class UsersRepositoryMemory implements UserRepository {

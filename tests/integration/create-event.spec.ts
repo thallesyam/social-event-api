@@ -1,6 +1,6 @@
 import { EventCreate } from '@/application/usecases/event-create'
 import { GenerateCryptoId } from '@/infra/gateways'
-import { EventRepositoryMemory } from '@/infra/repositories/memory/event-repository'
+import { EventRepositoryMemory } from '@/infra/repositories/memory'
 
 test('Deve criar um evento com um usuário válido', async () => {
   const eventRepository = new EventRepositoryMemory()

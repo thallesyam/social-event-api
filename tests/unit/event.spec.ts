@@ -2,12 +2,13 @@ import { Event } from '@/domain/entities'
 import { InvalidEvent } from '@/domain/errors'
 
 test('Deve criar um evento com os dados corretos', () => {
+  const date = new Date()
   const sut = new Event(
     '1',
     '1',
     'Aula sobre typescript',
     'Aula voltada para enterder o básico da sintaxe typescript',
-    new Date('2022-12-06T12:00:00'),
+    new Date(date.setDate(date.getDate() + 1)),
     '11932245266',
     100,
     'onSite',
@@ -20,12 +21,13 @@ test('Deve criar um evento com os dados corretos', () => {
 })
 
 test('Deve criar um evento na modalidade remota', () => {
+  const date = new Date()
   const sut = new Event(
     '1',
     '1',
     'Aula sobre typescript',
     'Aula voltada para enterder o básico da sintaxe typescript',
-    new Date('2022-12-06T12:00:00'),
+    new Date(date.setDate(date.getDate() + 1)),
     '11932245266',
     100
   )
@@ -34,6 +36,7 @@ test('Deve criar um evento na modalidade remota', () => {
 })
 
 test('Deve tentar criar um evento com os dados incorretos', () => {
+  const date = new Date()
   expect(
     () =>
       new Event(
@@ -41,7 +44,7 @@ test('Deve tentar criar um evento com os dados incorretos', () => {
         '1',
         '',
         'Aula voltada para enterder o básico da sintaxe typescript',
-        new Date('2022-12-06T12:00:00'),
+        new Date(date.setDate(date.getDate() + 1)),
         '',
         100,
         'onSite',

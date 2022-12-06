@@ -8,6 +8,7 @@ import {
 } from '@/infra/repositories/memory'
 
 test('Deve realizar uma inscrição com um usuário e evento válido', async () => {
+  const date = new Date()
   const owner = new User(
     '1',
     'Thalles Ian',
@@ -27,7 +28,7 @@ test('Deve realizar uma inscrição com um usuário e evento válido', async () 
     owner.userId,
     'Aula sobre typescript',
     'Aula voltada para enterder o básico da sintaxe typescript',
-    new Date('2022-12-06T12:00:00'),
+    new Date(date.setDate(date.getDate() + 1)),
     '11932245266',
     100,
     'onSite',

@@ -16,7 +16,14 @@ export class Event {
     readonly closureDate?: Date,
     readonly additionalInfo?: string
   ) {
-    if (!eventName || !description || !eventDate || !paymentKey || !price) {
+    if (
+      !eventName ||
+      !description ||
+      !eventDate ||
+      eventDate < new Date() ||
+      !paymentKey ||
+      !price
+    ) {
       throw new InvalidEvent()
     }
   }

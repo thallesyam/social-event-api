@@ -24,11 +24,12 @@ test('Deve criar um evento com um usuário válido', async () => {
     userRepository,
     generateIdGateway
   )
+  const date = new Date()
   const input = {
     ownerId: user.userId,
     eventName: 'Aula sobre typescript',
     description: 'Aula voltada para enterder o básico da sintaxe typescript',
-    eventDate: new Date('2022-12-06T12:00:00'),
+    eventDate: new Date(date.setDate(date.getDate() + 1)),
     paymentKey: '11932245266',
     price: 100
   }
@@ -55,11 +56,12 @@ test('Deve criar mais de um evento com um usuário administrador', async () => {
     userRepository,
     generateIdGateway
   )
+  const date = new Date()
   const input = {
     ownerId: user.userId,
     eventName: 'Aula sobre typescript',
     description: 'Aula voltada para enterder o básico da sintaxe typescript',
-    eventDate: new Date('2022-12-06T12:00:00'),
+    eventDate: new Date(date.setDate(date.getDate() + 1)),
     paymentKey: '11932245266',
     price: 100
   }
@@ -86,11 +88,12 @@ test('Deve tentar criar mais de um evento com um usuário comum', async () => {
     userRepository,
     generateIdGateway
   )
+  const date = new Date()
   const input = {
     ownerId: user.userId,
     eventName: 'Aula sobre typescript',
     description: 'Aula voltada para enterder o básico da sintaxe typescript',
-    eventDate: new Date('2022-12-06T12:00:00'),
+    eventDate: new Date(date.setDate(date.getDate() + 1)),
     paymentKey: '11932245266',
     price: 100
   }

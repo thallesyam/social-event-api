@@ -1,4 +1,3 @@
-import { User } from '@/domain/entities'
 import { Event } from '@/domain/entities'
 import { InvalidEvent } from '@/domain/errors'
 

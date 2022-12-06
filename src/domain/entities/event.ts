@@ -1,6 +1,7 @@
 import { InvalidEvent } from '@/domain/errors'
 
 export class Event {
+  private status = true
   readonly createdAt = new Date()
 
   constructor(
@@ -26,5 +27,13 @@ export class Event {
     ) {
       throw new InvalidEvent()
     }
+  }
+
+  finishEvent() {
+    this.status = false
+  }
+
+  getStatus() {
+    return this.status
   }
 }

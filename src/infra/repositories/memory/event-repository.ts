@@ -7,6 +7,13 @@ export class EventRepositoryMemory implements EventRepository {
 
   constructor() {}
 
+  async updateEventStatus(eventId: string): Promise<void> {
+    if (!eventId) throw new EventIdNotFound()
+    const event = this.events.find((event) => event.eventId === eventId)
+    if (!event) throw new EventIdNotFound()
+    event.finishEvent()
+  }
+
   async findAll(): Promise<Event[]> {
     return this.events
   }

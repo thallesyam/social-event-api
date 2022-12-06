@@ -5,6 +5,7 @@ export class Event {
 
   constructor(
     readonly eventId: string,
+    readonly ownerId: string,
     readonly eventName: string,
     readonly description: string,
     readonly eventDate: Date,

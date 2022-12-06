@@ -17,6 +17,11 @@ export class EventRepositoryMemory implements EventRepository {
     return event
   }
 
+  async findOneByUserId(userId: string): Promise<Event[]> {
+    const event = this.events.filter((event) => event.ownerId === userId)
+    return event
+  }
+
   async save(event: Event): Promise<void> {
     this.events.push(event)
   }

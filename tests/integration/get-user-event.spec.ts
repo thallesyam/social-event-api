@@ -14,7 +14,6 @@ test('Deve retornar todos os eventos que o usuário é dono', async () => {
     'fake-image',
     '123'
   )
-
   const event = new Event(
     '1',
     owner.userId,
@@ -31,7 +30,6 @@ test('Deve retornar todos os eventos que o usuário é dono', async () => {
   await userRepository.save(owner)
   await eventRepository.save(event)
   const sut = new GetUserEvent(userRepository, eventRepository)
-
   const events = await sut.execute({ userId: owner.userId })
   expect(events.length).toBe(1)
 })

@@ -12,7 +12,7 @@ export class Event {
     readonly eventDate: Date,
     readonly paymentKey: string,
     readonly price: number,
-    readonly modality: 'onSite' | 'remote' = 'remote',
+    readonly modality: string = 'remote',
     readonly address?: string,
     readonly closureDate?: Date,
     readonly additionalInfo?: string

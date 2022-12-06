@@ -3,7 +3,7 @@ import { Event, User } from '@/domain/entities'
 import { EventIdNotFound, UserIdNotFound } from '@/domain/errors'
 import { GenerateCryptoId } from '@/infra/gateways'
 import {
-  UsersRepositoryMemory,
+  UserRepositoryMemory,
   EventRepositoryMemory,
   EnrollmentRepositoryMemory
 } from '@/infra/repositories/memory'
@@ -37,14 +37,14 @@ test('Deve realizar uma inscrição com um usuário e evento válido', async () 
   )
   const generateIdGateway = new GenerateCryptoId()
   const eventRepository = new EventRepositoryMemory()
-  const usersRepository = new UsersRepositoryMemory()
+  const userRepository = new UserRepositoryMemory()
   const enrollmentRepository = new EnrollmentRepositoryMemory()
-  await usersRepository.save(owner)
-  await usersRepository.save(subscriber)
+  await userRepository.save(owner)
+  await userRepository.save(subscriber)
   await eventRepository.save(event)
   const sut = new EventSubscribe(
     eventRepository,
-    usersRepository,
+    userRepository,
     enrollmentRepository,
     generateIdGateway
   )
@@ -87,14 +87,14 @@ test('Deve tentar realizar uma inscrição com um usuário inválido', async () 
   )
   const generateIdGateway = new GenerateCryptoId()
   const eventRepository = new EventRepositoryMemory()
-  const usersRepository = new UsersRepositoryMemory()
+  const userRepository = new UserRepositoryMemory()
   const enrollmentRepository = new EnrollmentRepositoryMemory()
-  await usersRepository.save(owner)
-  await usersRepository.save(subscriber)
+  await userRepository.save(owner)
+  await userRepository.save(subscriber)
   await eventRepository.save(event)
   const sut = new EventSubscribe(
     eventRepository,
-    usersRepository,
+    userRepository,
     enrollmentRepository,
     generateIdGateway
   )
@@ -137,14 +137,14 @@ test('Deve tentar realizar uma inscrição com um evento inexistente', async () 
   )
   const generateIdGateway = new GenerateCryptoId()
   const eventRepository = new EventRepositoryMemory()
-  const usersRepository = new UsersRepositoryMemory()
+  const userRepository = new UserRepositoryMemory()
   const enrollmentRepository = new EnrollmentRepositoryMemory()
-  await usersRepository.save(owner)
-  await usersRepository.save(subscriber)
+  await userRepository.save(owner)
+  await userRepository.save(subscriber)
   await eventRepository.save(event)
   const sut = new EventSubscribe(
     eventRepository,
-    usersRepository,
+    userRepository,
     enrollmentRepository,
     generateIdGateway
   )

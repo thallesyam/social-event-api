@@ -1,5 +1,5 @@
 import { UserRegister } from '@/application/usecases'
-import { UsersRepositoryMemory } from '@/infra/repositories/memory'
+import { UserRepositoryMemory } from '@/infra/repositories/memory'
 import { GenerateCryptoId } from '@/infra/gateways'
 import { UserAlreadyRegister } from '@/domain/errors'
 
@@ -10,7 +10,7 @@ test('Deve criar um usuário e retornar a quantidade correta no repositório', a
     image: 'fake-image',
     password: '123'
   }
-  const usersRepository = new UsersRepositoryMemory()
+  const usersRepository = new UserRepositoryMemory()
   const generateIdGateway = new GenerateCryptoId()
   const registerUser = new UserRegister(usersRepository, generateIdGateway)
   await registerUser.execute(sut)
@@ -25,7 +25,7 @@ test('Deve tentar criar um usuário com um email já existente', async () => {
     image: 'fake-image',
     password: '123'
   }
-  const usersRepository = new UsersRepositoryMemory()
+  const usersRepository = new UserRepositoryMemory()
   const generateIdGateway = new GenerateCryptoId()
   const registerUser = new UserRegister(usersRepository, generateIdGateway)
   await registerUser.execute(sut)

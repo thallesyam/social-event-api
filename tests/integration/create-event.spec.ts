@@ -4,7 +4,7 @@ import { UserNotPermission } from '@/domain/errors'
 import { GenerateCryptoId } from '@/infra/gateways'
 import {
   EventRepositoryMemory,
-  UsersRepositoryMemory
+  UserRepositoryMemory
 } from '@/infra/repositories/memory'
 
 test('Deve criar um evento com um usuário válido', async () => {
@@ -17,7 +17,7 @@ test('Deve criar um evento com um usuário válido', async () => {
     'fake-image',
     '123'
   )
-  const userRepository = new UsersRepositoryMemory()
+  const userRepository = new UserRepositoryMemory()
   await userRepository.save(user)
   const sut = new EventCreate(
     eventRepository,
@@ -34,7 +34,7 @@ test('Deve criar um evento com um usuário válido', async () => {
     price: 100
   }
   await sut.execute(input)
-  const events = await eventRepository.findOneByUserId(user.userId)
+  const events = await eventRepository.findByUserId(user.userId)
   expect(events.length).toBe(1)
 })
 
@@ -49,7 +49,7 @@ test('Deve criar mais de um evento com um usuário administrador', async () => {
     '123'
   )
   user.setIsPayingUser()
-  const userRepository = new UsersRepositoryMemory()
+  const userRepository = new UserRepositoryMemory()
   await userRepository.save(user)
   const sut = new EventCreate(
     eventRepository,
@@ -67,7 +67,7 @@ test('Deve criar mais de um evento com um usuário administrador', async () => {
   }
   await sut.execute(input)
   await sut.execute(input)
-  const events = await eventRepository.findOneByUserId(user.userId)
+  const events = await eventRepository.findByUserId(user.userId)
   expect(events.length).toBe(2)
 })
 
@@ -81,7 +81,7 @@ test('Deve tentar criar mais de um evento com um usuário comum', async () => {
     'fake-image',
     '123'
   )
-  const userRepository = new UsersRepositoryMemory()
+  const userRepository = new UserRepositoryMemory()
   await userRepository.save(user)
   const sut = new EventCreate(
     eventRepository,

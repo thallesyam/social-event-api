@@ -1,0 +1,62 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  userId       String  @id @default(uuid())
+  name         String
+  email        String  @unique
+  image        String
+  isPayingUser Boolean @default(false)
+  password     String
+
+  subscriptions Subscription[]
+  Event         Event[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Event {
+  eventId        String         @id @default(uuid())
+  ownerId        String
+  owner          User           @relation(fields: [ownerId], references: [userId])
+  slug           String         @unique
+  eventName      String
+  description    String
+  eventDate      DateTime
+  paymentKey     String
+  status         Boolean
+  price          Float
+  modality       String?        @default("remote")
+  address        String?
+  closureDate    DateTime?
+  additionalInfo String?
+  subscriptions  Subscription[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("events")
+}
+
+model Subscription {
+  subscriptionId String @id @default(uuid())
+
+  Event        Event?  @relation(fields: [eventEventId], references: [eventId])
+  eventEventId String?
+  User         User?   @relation(fields: [userUserId], references: [userId])
+  userUserId   String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("subscriptions")
+}

@@ -1,28 +1,40 @@
 import { EventCreate } from '@/application/usecases'
 import { User } from '@/domain/entities'
 import { UserNotPermission } from '@/domain/errors'
-import { GenerateCryptoId } from '@/infra/gateways'
+import { GenerateCryptoId, GenerateLocalSlugGateway } from '@/infra/gateways'
+import { EventRepositoryDatabase } from '@/infra/repositories/database/event-repository'
 import {
   EventRepositoryMemory,
   UserRepositoryMemory
 } from '@/infra/repositories/memory'
+import { PrismaClient } from '@prisma/client'
+
+afterEach(async () => {
+  const prisma = new PrismaClient()
+  await prisma.event.deleteMany()
+})
 
 test('Deve criar um evento com um usuário válido', async () => {
-  const eventRepository = new EventRepositoryMemory()
+  const prisma = new PrismaClient()
+  // const eventRepository = new EventRepositoryMemory()
+  const eventRepository = new EventRepositoryDatabase(prisma)
   const generateIdGateway = new GenerateCryptoId()
+  const generateSlugGateway = new GenerateLocalSlugGateway()
   const user = new User(
-    '1',
+    '2487e29e-5b62-4839-b070-6819c6a7af57',
     'Victoria',
     'vsamoraa@gmail.com',
     'fake-image',
     '123'
   )
+  user.setIsPayingUser()
   const userRepository = new UserRepositoryMemory()
   await userRepository.save(user)
   const sut = new EventCreate(
     eventRepository,
     userRepository,
-    generateIdGateway
+    generateIdGateway,
+    generateSlugGateway
   )
   const date = new Date()
   const input = {
@@ -41,6 +53,7 @@ test('Deve criar um evento com um usuário válido', async () => {
 test('Deve criar mais de um evento com um usuário administrador', async () => {
   const eventRepository = new EventRepositoryMemory()
   const generateIdGateway = new GenerateCryptoId()
+  const generateSlugGateway = new GenerateLocalSlugGateway()
   const user = new User(
     '1',
     'Victoria',
@@ -54,7 +67,8 @@ test('Deve criar mais de um evento com um usuário administrador', async () => {
   const sut = new EventCreate(
     eventRepository,
     userRepository,
-    generateIdGateway
+    generateIdGateway,
+    generateSlugGateway
   )
   const date = new Date()
   const input = {
@@ -74,6 +88,7 @@ test('Deve criar mais de um evento com um usuário administrador', async () => {
 test('Deve tentar criar mais de um evento com um usuário comum', async () => {
   const eventRepository = new EventRepositoryMemory()
   const generateIdGateway = new GenerateCryptoId()
+  const generateSlugGateway = new GenerateLocalSlugGateway()
   const user = new User(
     '1',
     'Victoria',
@@ -86,7 +101,8 @@ test('Deve tentar criar mais de um evento com um usuário comum', async () => {
   const sut = new EventCreate(
     eventRepository,
     userRepository,
-    generateIdGateway
+    generateIdGateway,
+    generateSlugGateway
   )
   const date = new Date()
   const input = {

@@ -1,13 +1,13 @@
 import { InvalidEvent } from '@/domain/errors'
 
 export class Event {
-  private status = true
-  readonly createdAt = new Date()
+  status = true
 
   constructor(
     readonly eventId: string,
     readonly ownerId: string,
     readonly eventName: string,
+    readonly slug: string,
     readonly description: string,
     readonly eventDate: Date,
     readonly paymentKey: string,

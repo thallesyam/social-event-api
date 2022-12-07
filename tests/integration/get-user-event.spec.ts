@@ -18,6 +18,7 @@ test('Deve retornar todos os eventos que o usuário é dono', async () => {
     '1',
     owner.userId,
     'Aula sobre typescript',
+    'aula-sobre-typescript',
     'Aula voltada para enterder o básico da sintaxe typescript',
     new Date(date.setDate(date.getDate() + 1)),
     '11932245266',

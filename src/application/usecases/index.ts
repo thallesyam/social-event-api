@@ -1,4 +1,7 @@
 export * from './event-create'
 export * from './event-subscribe'
+export * from './event-update'
+export * from './get-event-subscriber'
+export * from './get-user-event'
 export * from './user-authentication'
 export * from './user-register'

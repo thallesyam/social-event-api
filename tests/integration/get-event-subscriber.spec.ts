@@ -1,5 +1,5 @@
 import { EventSubscribe } from '@/application/usecases'
-import { GetEventSubscriber } from '@/application/usecases/get-event-subscriber'
+import { GetEventSubscriber } from '@/application/usecases'
 import { User, Event, Enrollment } from '@/domain/entities'
 import { GenerateCryptoId } from '@/infra/gateways'
 import {

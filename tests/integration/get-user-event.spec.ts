@@ -1,4 +1,4 @@
-import { GetUserEvent } from '@/application/usecases/get-user-event.'
+import { GetUserEvent } from '@/application/usecases'
 import { User, Event } from '@/domain/entities'
 import {
   EventRepositoryMemory,

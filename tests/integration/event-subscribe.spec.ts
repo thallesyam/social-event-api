@@ -1,4 +1,4 @@
-import { EventSubscribe } from '@/application/usecases/event-subscribe'
+import { EventSubscribe } from '@/application/usecases'
 import { Event, User } from '@/domain/entities'
 import { EventIdNotFound, UserIdNotFound } from '@/domain/errors'
 import { GenerateCryptoId } from '@/infra/gateways'

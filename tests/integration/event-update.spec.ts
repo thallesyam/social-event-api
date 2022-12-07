@@ -1,4 +1,4 @@
-import { EventUpdateStatus } from '@/application/usecases/event-update'
+import { EventUpdateStatus } from '@/application/usecases'
 import { User, Event } from '@/domain/entities'
 import { EventIdNotFound, UserNotPermission } from '@/domain/errors'
 import { EventRepositoryDatabase } from '@/infra/repositories/database/event-repository'

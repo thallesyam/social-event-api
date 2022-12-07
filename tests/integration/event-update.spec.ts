@@ -1,15 +1,17 @@
 import { EventUpdateStatus } from '@/application/usecases/event-update'
 import { User, Event } from '@/domain/entities'
 import { EventIdNotFound, UserNotPermission } from '@/domain/errors'
+import { EventRepositoryDatabase } from '@/infra/repositories/database/event-repository'
 import {
   EventRepositoryMemory,
   UserRepositoryMemory
 } from '@/infra/repositories/memory'
+import { PrismaClient } from '@prisma/client'
 
 test('Deve criar e alterar o status de uma enrollment', async () => {
   const date = new Date()
   const owner = new User(
-    '1',
+    '2487e29e-5b62-4839-b070-6819c6a7af57',
     'Thalles Ian',
     'thallesyam@gmail.com',
     'fake-image',
@@ -27,7 +29,10 @@ test('Deve criar e alterar o status de uma enrollment', async () => {
     'onSite',
     'Rua Francisco da cunha'
   )
+  // const prisma = new PrismaClient()
+  // const eventRepository = new EventRepositoryDatabase(prisma)
   const eventRepository = new EventRepositoryMemory()
+
   const userRepository = new UserRepositoryMemory()
   await userRepository.save(owner)
   await eventRepository.save(event)
@@ -38,7 +43,7 @@ test('Deve criar e alterar o status de uma enrollment', async () => {
   }
   await sut.execute(input)
   const eventStatus = await eventRepository.findOneById(event.eventId)
-  expect(eventStatus?.getStatus()).toBe(false)
+  expect(eventStatus.status).toBe(false)
 })
 
 test('Deve tentar criar e alterar o status de uma enrollment passando um evento inválido', async () => {

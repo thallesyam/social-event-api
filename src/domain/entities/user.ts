@@ -1,10 +1,7 @@
 import { InvalidUser } from '@/domain/errors'
 
 export class User {
-  private isPayingUser = false
-  readonly createdAt = new Date()
-  readonly followers: string[] = []
-  readonly following: string[] = []
+  isPayingUser = false
 
   constructor(
     readonly userId: string,
@@ -24,12 +21,5 @@ export class User {
 
   setIsPayingUser() {
     this.isPayingUser = true
-  }
-
-  setFollower(userId: string) {
-    this.followers.push(userId)
-  }
-  setFollowing(userId: string) {
-    this.following.push(userId)
   }
 }

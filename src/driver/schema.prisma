@@ -8,18 +8,19 @@ generator client {
 }
 
 model User {
-  userId       String  @id @default(uuid())
-  name         String
-  email        String  @unique
-  image        String
-  isPayingUser Boolean @default(false)
-  password     String
-
+  userId        String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  image         String
+  isPayingUser  Boolean        @default(false)
+  password      String
   subscriptions Subscription[]
   Event         Event[]
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  followers  Follows[] @relation("follower")
+  following  Follows[] @relation("following")
 
   @@map("users")
 }
@@ -59,4 +60,13 @@ model Subscription {
   updated_at DateTime @updatedAt
 
   @@map("subscriptions")
+}
+
+model Follows {
+  follower    User   @relation("follower", fields: [followerId], references: [userId])
+  followerId  String
+  following   User   @relation("following", fields: [followingId], references: [userId])
+  followingId String
+
+  @@id([followerId, followingId])
 }

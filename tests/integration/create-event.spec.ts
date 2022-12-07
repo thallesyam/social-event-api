@@ -15,9 +15,9 @@ afterEach(async () => {
 })
 
 test('Deve criar um evento com um usuário válido', async () => {
-  const prisma = new PrismaClient()
-  // const eventRepository = new EventRepositoryMemory()
-  const eventRepository = new EventRepositoryDatabase(prisma)
+  // const prisma = new PrismaClient()
+  // const eventRepository = new EventRepositoryDatabase(prisma)
+  const eventRepository = new EventRepositoryMemory()
   const generateIdGateway = new GenerateCryptoId()
   const generateSlugGateway = new GenerateLocalSlugGateway()
   const user = new User(

@@ -1,0 +1,93 @@
+import {
+  EventCreate,
+  EventSubscribe,
+  EventUpdateStatus,
+  Follow,
+  GetEvent,
+  GetEvents,
+  GetUser,
+  GetUsers,
+  UserAuthentication,
+  UserRegister
+} from '@/application/usecases'
+import { GetUserEvent } from '@/application/usecases/get-user-event'
+import { HttpServer } from '@/infra/http/http-server'
+
+export default class OrderController {
+  constructor(
+    readonly httpServer: HttpServer,
+    readonly event: EventCreate,
+    readonly eventByUser: GetUserEvent,
+    readonly getUsers: GetUsers,
+    readonly getUser: GetUser,
+    readonly getEvent: GetEvent,
+    readonly getEvents: GetEvents,
+    readonly subscribe: EventSubscribe,
+    readonly eventUpdate: EventUpdateStatus,
+    readonly follow: Follow,
+    readonly authentication: UserAuthentication,
+    readonly register: UserRegister
+  ) {
+    httpServer.on('post', '/event', async function (params: any, body: any) {
+      await event.execute(body)
+      return
+    })
+
+    httpServer.on('get', '/event/:id', async function (params: any, body: any) {
+      const events = await eventByUser.execute({ userId: params.id })
+      return events
+    })
+
+    httpServer.on('get', '/users', async function (params: any, body: any) {
+      const users = await getUsers.execute()
+      return { users }
+    })
+
+    httpServer.on('get', '/event/:id', async function (params: any, body: any) {
+      const event = await getEvent.execute({ eventId: params.id })
+      return { event }
+    })
+
+    httpServer.on('get', '/events', async function (params: any, body: any) {
+      const events = await getEvents.execute()
+      return { events }
+    })
+
+    httpServer.on('get', '/user/:id', async function (params: any, body: any) {
+      const user = await getUser.execute({ userId: params.id })
+      return { user }
+    })
+
+    httpServer.on(
+      'post',
+      '/subscribe',
+      async function (params: any, body: any) {
+        await subscribe.execute(body)
+        return
+      }
+    )
+
+    httpServer.on('patch', '/event', async function (params: any, body: any) {
+      await eventUpdate.execute(body)
+      return
+    })
+
+    httpServer.on('post', '/follow', async function (params: any, body: any) {
+      await follow.execute(body)
+      return
+    })
+
+    httpServer.on(
+      'post',
+      '/authentication',
+      async function (params: any, body: any) {
+        const token = await authentication.execute(body)
+        return { token }
+      }
+    )
+
+    httpServer.on('post', '/register', async function (params: any, body: any) {
+      await register.execute(body)
+    })
+  }
+}

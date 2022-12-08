@@ -1,7 +1,7 @@
 import express from 'express'
-import HttpServer from '@/infra/http/http-server'
+import { HttpServer } from '@/infra/http/http-server'
 import cors from 'cors'
-export default class ExpressAdapter implements HttpServer {
+export class ExpressAdapter implements HttpServer {
   app: any
 
   constructor() {

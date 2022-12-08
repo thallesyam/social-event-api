@@ -44,7 +44,11 @@ export class UserRepositoryDatabase implements UserRepository {
   async findOneById(userId: string): Promise<User> {
     const user = await this.prisma.user.findUnique({
       where: { userId },
-      include: { followers: true, following: true, subscriptions: true }
+      include: {
+        followers: true,
+        following: { include: { follower: { include: { Event: true } } } },
+        subscriptions: true
+      }
     })
     if (!user) throw new UserIdNotFound()
     return user as unknown as User
@@ -56,7 +60,11 @@ export class UserRepositoryDatabase implements UserRepository {
   ): Promise<User | undefined> {
     const user = await this.prisma.user.findMany({
       where: { email, password },
-      include: { followers: true, following: true, subscriptions: true }
+      include: {
+        followers: true,
+        following: { include: { follower: { include: { Event: true } } } },
+        subscriptions: true
+      }
     })
     if (!user) throw new UserNotFound()
     return user as unknown as User

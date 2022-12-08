@@ -2,6 +2,7 @@ import { InvalidEvent } from '@/domain/errors'
 
 export class Event {
   status = true
+  subscriptions: any = []
 
   constructor(
     readonly eventId: string,

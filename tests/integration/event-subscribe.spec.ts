@@ -3,10 +3,14 @@ import { Event, User } from '@/domain/entities'
 import { EventIdNotFound, UserIdNotFound } from '@/domain/errors'
 import { GenerateCryptoId } from '@/infra/gateways'
 import {
+  EventRepositoryDatabase,
+  UserRepositoryDatabase
+} from '@/infra/repositories/database'
+import {
   UserRepositoryMemory,
-  EventRepositoryMemory,
-  EnrollmentRepositoryMemory
+  EventRepositoryMemory
 } from '@/infra/repositories/memory'
+import { PrismaClient } from '@prisma/client'
 
 test('Deve realizar uma inscrição com um usuário e evento válido', async () => {
   const date = new Date()
@@ -37,16 +41,17 @@ test('Deve realizar uma inscrição com um usuário e evento válido', async () 
     'Rua Francisco da cunha'
   )
   const generateIdGateway = new GenerateCryptoId()
+  // const prisma = new PrismaClient()
+  // const eventRepository = new EventRepositoryDatabase(prisma)
+  // const userRepository = new UserRepositoryDatabase(prisma)
   const eventRepository = new EventRepositoryMemory()
   const userRepository = new UserRepositoryMemory()
-  const enrollmentRepository = new EnrollmentRepositoryMemory()
   await userRepository.save(owner)
   await userRepository.save(subscriber)
   await eventRepository.save(event)
   const sut = new EventSubscribe(
     eventRepository,
     userRepository,
-    enrollmentRepository,
     generateIdGateway
   )
 
@@ -55,8 +60,8 @@ test('Deve realizar uma inscrição com um usuário e evento válido', async () 
     eventId: event.eventId
   }
   await sut.execute(input)
-  const enrollments = await enrollmentRepository.findAll()
-  expect(enrollments.length).toBe(1)
+  const enrollments = await eventRepository.findAll()
+  expect(enrollments[0].subscriptions.length).toBe(1)
 })
 
 test('Deve tentar realizar uma inscrição com um usuário inválido', async () => {
@@ -90,14 +95,12 @@ test('Deve tentar realizar uma inscrição com um usuário inválido', async () 
   const generateIdGateway = new GenerateCryptoId()
   const eventRepository = new EventRepositoryMemory()
   const userRepository = new UserRepositoryMemory()
-  const enrollmentRepository = new EnrollmentRepositoryMemory()
   await userRepository.save(owner)
   await userRepository.save(subscriber)
   await eventRepository.save(event)
   const sut = new EventSubscribe(
     eventRepository,
     userRepository,
-    enrollmentRepository,
     generateIdGateway
   )
 
@@ -141,14 +144,12 @@ test('Deve tentar realizar uma inscrição com um evento inexistente', async () 
   const generateIdGateway = new GenerateCryptoId()
   const eventRepository = new EventRepositoryMemory()
   const userRepository = new UserRepositoryMemory()
-  const enrollmentRepository = new EnrollmentRepositoryMemory()
   await userRepository.save(owner)
   await userRepository.save(subscriber)
   await eventRepository.save(event)
   const sut = new EventSubscribe(
     eventRepository,
     userRepository,
-    enrollmentRepository,
     generateIdGateway
   )
 

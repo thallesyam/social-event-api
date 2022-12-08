@@ -13,7 +13,7 @@ export class UserRepositoryDatabase implements UserRepository {
   }
 
   async findOneById(userId: string): Promise<User> {
-    const user = await this.prisma.user.findMany({ where: { userId } })
+    const user = await this.prisma.user.findUnique({ where: { userId } })
     if (!user) throw new UserIdNotFound()
     return user as unknown as User
   }

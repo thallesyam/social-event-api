@@ -21,13 +21,12 @@ test('Deve criar um evento com um usuário válido', async () => {
   const generateIdGateway = new GenerateCryptoId()
   const generateSlugGateway = new GenerateLocalSlugGateway()
   const user = new User(
-    'd878405d-107f-4cbe-a9b8-c2dc750bb059',
+    '00801e4e-700a-4275-ba4f-897d36c75784',
     'Victoria',
     'vsamoraa@gmail.com',
     'fake-image',
     '123'
   )
-  user.setIsPayingUser()
   const userRepository = new UserRepositoryMemory()
   await userRepository.save(user)
   const sut = new EventCreate(

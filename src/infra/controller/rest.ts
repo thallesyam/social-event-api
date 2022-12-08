@@ -12,6 +12,7 @@ import {
 } from '@/application/usecases'
 import { GetUserEvent } from '@/application/usecases/get-user-event'
 import { HttpServer } from '@/infra/http/http-server'
+import { auth } from '../middleware/auth'
 
 export class RestController {
   constructor(
@@ -28,35 +29,65 @@ export class RestController {
     readonly authentication: UserAuthentication,
     readonly register: UserRegister
   ) {
-    httpServer.on('post', '/event', async function (params: any, body: any) {
-      await event.execute(body)
-      return
-    })
+    httpServer.on(
+      'post',
+      '/event',
+      async function (params: any, body: any) {
+        await event.execute(body)
+        return
+      },
+      auth
+    )
 
-    httpServer.on('get', '/user/:id', async function (params: any, body: any) {
-      const events = await eventByUser.execute({ userId: params.id })
-      return events
-    })
+    httpServer.on(
+      'get',
+      '/user/:id',
+      async function (params: any, body: any) {
+        const events = await eventByUser.execute({ userId: params.id })
+        return events
+      },
+      auth
+    )
 
-    httpServer.on('get', '/users', async function (params: any, body: any) {
-      const users = await getUsers.execute()
-      return { users }
-    })
+    httpServer.on(
+      'get',
+      '/users',
+      async function (params: any, body: any) {
+        const users = await getUsers.execute()
+        return { users }
+      },
+      auth
+    )
 
-    httpServer.on('get', '/event/:id', async function (params: any, body: any) {
-      const event = await getEvent.execute({ eventId: params.id })
-      return { event }
-    })
+    httpServer.on(
+      'get',
+      '/event/:id',
+      async function (params: any, body: any) {
+        const event = await getEvent.execute({ eventId: params.id })
+        return { event }
+      },
+      auth
+    )
 
-    httpServer.on('get', '/events', async function (params: any, body: any) {
-      const events = await getEvents.execute()
-      return { events }
-    })
+    httpServer.on(
+      'get',
+      '/events',
+      async function (params: any, body: any) {
+        const events = await getEvents.execute()
+        return { events }
+      },
+      auth
+    )
 
-    httpServer.on('get', '/user/:id', async function (params: any, body: any) {
-      const user = await getUser.execute({ userId: params.id })
-      return { user }
-    })
+    httpServer.on(
+      'get',
+      '/user/:id',
+      async function (params: any, body: any) {
+        const user = await getUser.execute({ userId: params.id })
+        return { user }
+      },
+      auth
+    )
 
     httpServer.on(
       'post',
@@ -67,15 +98,25 @@ export class RestController {
       }
     )
 
-    httpServer.on('patch', '/event', async function (params: any, body: any) {
-      await eventUpdate.execute(body)
-      return
-    })
+    httpServer.on(
+      'patch',
+      '/event',
+      async function (params: any, body: any) {
+        await eventUpdate.execute(body)
+        return
+      },
+      auth
+    )
 
-    httpServer.on('post', '/follow', async function (params: any, body: any) {
-      await follow.execute(body)
-      return
-    })
+    httpServer.on(
+      'post',
+      '/follow',
+      async function (params: any, body: any) {
+        await follow.execute(body)
+        return
+      },
+      auth
+    )
 
     httpServer.on(
       'post',

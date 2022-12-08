@@ -20,6 +20,7 @@ export async function auth(
       const user: any = verify(token, JWT_TOKEN)
       const parseUser = JSON.parse(user.user)
       response.setHeader('userId', parseUser[0].userId)
+      next()
     } else {
       return response.json({ message: 'Error' }).end()
     }

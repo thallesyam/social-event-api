@@ -36,4 +36,39 @@ export class UserRepositoryMemory implements UserRepository {
     if (hasUserWithSameEmail) throw new UserAlreadyRegister()
     this.users.push(user)
   }
+
+  async follow(from: User, to: User): Promise<void> {
+    const canUnfollow = from.followers.find(
+      (item: User) => item.userId === to.userId
+    )
+
+    if (canUnfollow) {
+      this.users = this.users.map((user) => {
+        if (user.userId === from.userId) {
+          return {
+            ...user,
+            followers: user.followers.filter(
+              (fol: User) => fol.userId !== to.userId
+            )
+          }
+        }
+
+        if (user.userId === to.userId) {
+          return {
+            ...user,
+            following: user.following.filter(
+              (fol: User) => fol.userId !== from.userId
+            )
+          }
+        }
+
+        return user
+      }) as any
+
+      return
+    }
+
+    from.followers.push(to)
+    to.following.push(from)
+  }
 }

@@ -2,6 +2,8 @@ import { InvalidUser } from '@/domain/errors'
 
 export class User {
   isPayingUser = false
+  followers: any = []
+  following: any = []
 
   constructor(
     readonly userId: string,

@@ -8,4 +8,5 @@ export interface UserRepository {
     password: string
   ): Promise<User | undefined>
   save(user: User): Promise<void>
+  follow(from: User, to: User): Promise<void>
 }

@@ -1,6 +1,11 @@
 import { EventSubscribe } from '@/application/usecases'
 import { Event, User } from '@/domain/entities'
-import { EventIdNotFound, UserIdNotFound } from '@/domain/errors'
+import {
+  EventIdNotFound,
+  InvalidEnrollment,
+  InvalidEvent,
+  UserIdNotFound
+} from '@/domain/errors'
 import { GenerateCryptoId } from '@/infra/gateways'
 import {
   EventRepositoryDatabase,
@@ -147,5 +152,99 @@ test('Deve tentar realizar uma inscrição com um evento inexistente', async () 
   }
   expect(async () => await sut.execute(input)).rejects.toThrowError(
     EventIdNotFound
+  )
+})
+
+test('Deve tentar realizar uma inscrição com um evento fechado', async () => {
+  const date = new Date()
+  const owner = new User(
+    '1',
+    'Thalles Ian',
+    'thallesyam@gmail.com',
+    'fake-image',
+    '123'
+  )
+  const subscriber = new User(
+    '2',
+    'Akin',
+    'akin@gmail.com',
+    'fake-image',
+    '123'
+  )
+  const event = new Event(
+    '1',
+    owner.userId,
+    'Aula sobre typescript',
+    'aula-sobre-typescript',
+    'Aula voltada para enterder o básico da sintaxe typescript',
+    new Date(date.setDate(date.getDate() + 1)),
+    '11932245266',
+    100,
+    'onSite',
+    'Rua Francisco da cunha'
+  )
+  event.status = false
+  const eventRepository = new EventRepositoryMemory()
+  const userRepository = new UserRepositoryMemory()
+  await userRepository.save(owner)
+  await userRepository.save(subscriber)
+  await eventRepository.save(event)
+  const sut = new EventSubscribe(eventRepository, userRepository)
+
+  const input = {
+    subscriberId: subscriber.userId,
+    eventId: event.eventId
+  }
+  expect(async () => await sut.execute(input)).rejects.toThrowError(
+    InvalidEvent
+  )
+})
+
+test('Deve tentar realizar uma inscrição duplicada', async () => {
+  const date = new Date()
+  const owner = new User(
+    '1',
+    'Thalles Ian',
+    'thallesyam@gmail.com',
+    'fake-image',
+    '123'
+  )
+  const subscriber = new User(
+    '2',
+    'Akin',
+    'akin@gmail.com',
+    'fake-image',
+    '123'
+  )
+  const event = new Event(
+    '1',
+    owner.userId,
+    'Aula sobre typescript',
+    'aula-sobre-typescript',
+    'Aula voltada para enterder o básico da sintaxe typescript',
+    new Date(date.setDate(date.getDate() + 1)),
+    '11932245266',
+    100,
+    'onSite',
+    'Rua Francisco da cunha'
+  )
+  const eventRepository = new EventRepositoryMemory()
+  const userRepository = new UserRepositoryMemory()
+  // const prisma = new PrismaClient()
+  // const eventRepository = new EventRepositoryDatabase(prisma)
+  // const userRepository = new UserRepositoryDatabase(prisma)
+  await userRepository.save(owner)
+  await userRepository.save(subscriber)
+  await eventRepository.save(event)
+  const sut = new EventSubscribe(eventRepository, userRepository)
+
+  const input = {
+    subscriberId: subscriber.userId,
+    eventId: event.eventId
+  }
+  await sut.execute(input)
+
+  expect(async () => await sut.execute(input)).rejects.toThrowError(
+    InvalidEnrollment
   )
 })

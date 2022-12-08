@@ -51,10 +51,10 @@ model Event {
 model Subscription {
   subscriptionId String @id @default(uuid())
 
-  Event        Event?  @relation(fields: [eventEventId], references: [eventId])
-  eventEventId String?
-  User         User?   @relation(fields: [userUserId], references: [userId])
-  userUserId   String?
+  Event   Event?  @relation(fields: [eventId], references: [eventId])
+  eventId String?
+  User    User?   @relation(fields: [userId], references: [userId])
+  userId  String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

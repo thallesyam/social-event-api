@@ -9,10 +9,10 @@ import {
 } from '@/infra/repositories/memory'
 import { PrismaClient } from '@prisma/client'
 
-afterEach(async () => {
-  const prisma = new PrismaClient()
-  await prisma.event.deleteMany()
-})
+// afterEach(async () => {
+//   const prisma = new PrismaClient()
+//   await prisma.event.deleteMany()
+// })
 
 test('Deve criar um evento com um usuário válido', async () => {
   // const prisma = new PrismaClient()
@@ -21,7 +21,7 @@ test('Deve criar um evento com um usuário válido', async () => {
   const generateIdGateway = new GenerateCryptoId()
   const generateSlugGateway = new GenerateLocalSlugGateway()
   const user = new User(
-    '2487e29e-5b62-4839-b070-6819c6a7af57',
+    'd878405d-107f-4cbe-a9b8-c2dc750bb059',
     'Victoria',
     'vsamoraa@gmail.com',
     'fake-image',

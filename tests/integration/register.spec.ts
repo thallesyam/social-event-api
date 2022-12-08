@@ -5,10 +5,10 @@ import { UserAlreadyRegister } from '@/domain/errors'
 import { PrismaClient } from '@prisma/client'
 import { UserRepositoryDatabase } from '@/infra/repositories/database/user-repository'
 
-afterEach(async () => {
-  const prisma = new PrismaClient()
-  await prisma.user.deleteMany()
-})
+// afterEach(async () => {
+//   const prisma = new PrismaClient()
+//   await prisma.user.deleteMany()
+// })
 
 test('Deve criar um usuário e retornar a quantidade correta no repositório', async () => {
   const sut = {

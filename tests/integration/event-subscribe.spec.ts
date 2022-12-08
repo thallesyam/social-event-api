@@ -49,11 +49,7 @@ test('Deve realizar uma inscrição com um usuário e evento válido', async () 
   await userRepository.save(owner)
   await userRepository.save(subscriber)
   await eventRepository.save(event)
-  const sut = new EventSubscribe(
-    eventRepository,
-    userRepository,
-    generateIdGateway
-  )
+  const sut = new EventSubscribe(eventRepository, userRepository)
 
   const input = {
     subscriberId: subscriber.userId,
@@ -98,11 +94,7 @@ test('Deve tentar realizar uma inscrição com um usuário inválido', async () 
   await userRepository.save(owner)
   await userRepository.save(subscriber)
   await eventRepository.save(event)
-  const sut = new EventSubscribe(
-    eventRepository,
-    userRepository,
-    generateIdGateway
-  )
+  const sut = new EventSubscribe(eventRepository, userRepository)
 
   const input = {
     subscriberId: '3',
@@ -147,11 +139,7 @@ test('Deve tentar realizar uma inscrição com um evento inexistente', async () 
   await userRepository.save(owner)
   await userRepository.save(subscriber)
   await eventRepository.save(event)
-  const sut = new EventSubscribe(
-    eventRepository,
-    userRepository,
-    generateIdGateway
-  )
+  const sut = new EventSubscribe(eventRepository, userRepository)
 
   const input = {
     subscriberId: subscriber.userId,

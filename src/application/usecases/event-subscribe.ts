@@ -1,11 +1,9 @@
 import { EventRepository, UserRepository } from '@/domain/repositories'
-import { GenerateIdGateway } from '@/application/gateways'
 
 export class EventSubscribe {
   constructor(
     readonly eventRepository: EventRepository,
-    readonly userRepository: UserRepository,
-    readonly generateIdGateway: GenerateIdGateway
+    readonly userRepository: UserRepository
   ) {}
 
   async execute(input: Input): Promise<void> {

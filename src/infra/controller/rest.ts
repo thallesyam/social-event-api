@@ -13,7 +13,7 @@ import {
 import { GetUserEvent } from '@/application/usecases/get-user-event'
 import { HttpServer } from '@/infra/http/http-server'
 
-export default class OrderController {
+export class RestController {
   constructor(
     readonly httpServer: HttpServer,
     readonly event: EventCreate,

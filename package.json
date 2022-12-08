@@ -1,13 +1,14 @@
 {
   "name": "event-management-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/main.ts",
   "repository": "https://github.com/thallesyam/event-management-server.git",
   "author": "thallesyam <thallesyam@gmail.com>",
   "license": "MIT",
   "scripts": {
     "dev": "npx nodemon src/main",
     "test": "jest",
+    "build": "tsc && tsc-alias",
     "test:watch": "jest --watchAll"
   },
   "prisma": {
@@ -33,6 +34,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
-    "prisma": "^4.7.1"
+    "prisma": "^4.7.1",
+    "tsc-alias": "^1.8.2"
   }
 }

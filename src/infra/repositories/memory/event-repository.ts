@@ -1,5 +1,9 @@
 import { Event, User } from '@/domain/entities'
-import { EventIdNotFound, InvalidEnrollment } from '@/domain/errors'
+import {
+  EventIdNotFound,
+  InvalidEnrollment,
+  InvalidEvent
+} from '@/domain/errors'
 import { EventRepository } from '@/domain/repositories'
 
 export class EventRepositoryMemory implements EventRepository {
@@ -10,6 +14,7 @@ export class EventRepositoryMemory implements EventRepository {
   async updateSubscribers(eventId: string, user: User): Promise<void> {
     const event = this.events.find((event) => event.eventId === eventId)
     if (!event) throw new EventIdNotFound()
+    if (!event.status) throw new InvalidEvent()
     const hasUser = event.subscriptions.find(
       (sub: User) => sub.userId === user.userId
     )

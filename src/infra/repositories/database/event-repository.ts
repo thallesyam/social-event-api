@@ -1,12 +1,30 @@
 import { PrismaClient } from '@prisma/client'
 import { Event, User } from '@/domain/entities'
 import { EventRepository } from '@/domain/repositories'
-import { EventIdNotFound } from '@/domain/errors'
+import {
+  EventIdNotFound,
+  InvalidEnrollment,
+  InvalidEvent
+} from '@/domain/errors'
 
 export class EventRepositoryDatabase implements EventRepository {
   constructor(readonly prisma: PrismaClient) {}
 
   async updateSubscribers(eventId: string, user: User): Promise<void> {
+    const event = await this.prisma.event.findUnique({
+      where: { eventId: eventId },
+      include: { subscriptions: { where: { userId: user.userId } } }
+    })
+
+    if (!event) throw new EventIdNotFound()
+    if (!event.status) {
+      throw new InvalidEvent()
+    }
+
+    if (event.subscriptions.length > 0) {
+      throw new InvalidEnrollment()
+    }
+
     await this.prisma.subscription.create({
       data: {
         eventId,

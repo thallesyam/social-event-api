@@ -42,7 +42,7 @@ export class UserRepositoryDatabase implements UserRepository {
   }
 
   async findOneById(userId: string): Promise<User> {
-    const user = await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findFirst({
       where: { userId },
       include: {
         followers: true,

@@ -1,12 +1,17 @@
 import express from 'express'
 import { HttpServer } from '@/infra/http/http-server'
 import cors from 'cors'
+import { auth } from '../middleware/auth'
 export class ExpressAdapter implements HttpServer {
   app: any
 
   constructor() {
     this.app = express()
     this.app.use(express.json())
+    this.app.use(async (req: any, res: any, next: any) => {
+      await auth(req, res, next)
+      next()
+    })
     this.app.use(cors())
   }
 

@@ -33,7 +33,7 @@ export class RestController {
       return
     })
 
-    httpServer.on('get', '/event/:id', async function (params: any, body: any) {
+    httpServer.on('get', '/user/:id', async function (params: any, body: any) {
       const events = await eventByUser.execute({ userId: params.id })
       return events
     })

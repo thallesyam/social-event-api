@@ -17,7 +17,7 @@ export class EventCreate {
     const user = await this.userRepository.findOneById(input.ownerId)
     const events = await this.eventRepository.findByUserId(user.userId)
 
-    if (!user.getIsPayingUser() && !!events?.length) {
+    if (!user.isPayingUser && !!events?.length) {
       throw new UserNotPermission()
     }
 
@@ -27,7 +27,7 @@ export class EventCreate {
       input.eventName,
       eventSlug,
       input.description,
-      input.eventDate,
+      new Date(input.eventDate),
       input.paymentKey,
       input.price,
       input.modality && input.modality,

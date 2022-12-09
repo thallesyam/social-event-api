@@ -54,6 +54,13 @@ export class UserRepositoryDatabase implements UserRepository {
     return user as unknown as User
   }
 
+  async updateUser(userId: string, updateData: any): Promise<void> {
+    await this.prisma.user.update({
+      where: { userId },
+      data: updateData
+    })
+  }
+
   async findByEmailAndPassword(
     email: string,
     password: string

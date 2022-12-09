@@ -8,6 +8,22 @@ export class UserRepositoryMemory implements UserRepository {
 
   constructor() {}
 
+  async updateUser(userId: string, updateData: any): Promise<void> {
+    if (!userId) throw new UserIdNotFound()
+    const user = this.users.filter((user) => user.userId !== userId)
+    if (!user) throw new UserIdNotFound()
+    this.users = this.users.map((user) => {
+      if (user.userId === userId) {
+        return {
+          ...user,
+          ...updateData
+        }
+      }
+
+      return user
+    })
+  }
+
   async findAll(): Promise<User[]> {
     return this.users
   }

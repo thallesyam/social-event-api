@@ -11,6 +11,7 @@ export class EventUpdate {
     const user = await this.userRepository.findOneById(input.ownerId)
     const event = await this.eventRepository.findOneById(input.eventId)
     if (user.userId !== event.ownerId) throw new UserNotPermission()
+    delete event.subscriptions
     const data = {
       ...event,
       ...input.updateData

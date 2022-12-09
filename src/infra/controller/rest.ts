@@ -1,6 +1,7 @@
 import {
   EventCreate,
   EventSubscribe,
+  EventUpdate,
   EventUpdateStatus,
   Follow,
   GetEvent,
@@ -8,7 +9,8 @@ import {
   GetUser,
   GetUsers,
   UserAuthentication,
-  UserRegister
+  UserRegister,
+  UserUpdate
 } from '@/application/usecases'
 import { GetUserEvent } from '@/application/usecases/get-user-event'
 import { HttpServer } from '@/infra/http/http-server'
@@ -24,7 +26,9 @@ export class RestController {
     readonly getEvent: GetEvent,
     readonly getEvents: GetEvents,
     readonly subscribe: EventSubscribe,
-    readonly eventUpdate: EventUpdateStatus,
+    readonly eventUpdateStatus: EventUpdateStatus,
+    readonly eventUpdate: EventUpdate,
+    readonly userUpdate: UserUpdate,
     readonly follow: Follow,
     readonly authentication: UserAuthentication,
     readonly register: UserRegister
@@ -40,10 +44,30 @@ export class RestController {
     )
 
     httpServer.on(
+      'put',
+      '/event',
+      async function (params: any, body: any) {
+        await eventUpdate.execute(body)
+        return
+      },
+      auth
+    )
+
+    httpServer.on(
       'get',
       '/user/:id',
       async function (params: any, body: any) {
         const user = await getUser.execute({ userId: params.id })
+        return user
+      },
+      auth
+    )
+
+    httpServer.on(
+      'put',
+      '/user',
+      async function (params: any, body: any) {
+        const user = await userUpdate.execute(body)
         return user
       },
       auth
@@ -92,7 +116,7 @@ export class RestController {
       'patch',
       '/event',
       async function (params: any, body: any) {
-        await eventUpdate.execute(body)
+        await eventUpdateStatus.execute(body)
         return
       },
       auth

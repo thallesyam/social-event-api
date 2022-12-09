@@ -5,3 +5,6 @@
 [x] - Criar a busca de eventos inscritos
 [x] - Criar a busca de eventos criados
 [x] - Criar inscrição do usuário no evento
+[] - Criar rota para atualizar evento
+[] - Criar rota para atualizar usuário
+[] - Buscar evento por slug

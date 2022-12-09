@@ -1,8 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 import axios from 'axios'
 
+const prisma = new PrismaClient()
+
 afterEach(async () => {
-  const prisma = new PrismaClient()
   await prisma.subscription.deleteMany()
   await prisma.follows.deleteMany()
   await prisma.event.deleteMany()
@@ -388,4 +389,99 @@ test('Deve testar a funcionalidade de follow', async () => {
   })
 
   expect(follow.status).toBe(200)
+})
+
+test('Deve atualizar um evento', async () => {
+  const user = {
+    userId: '1',
+    name: 'thalles',
+    email: 'thallesyam1@gmail.com',
+    image: 'a',
+    password: '1234'
+  }
+  await axios.post('http://localhost:3000/register', user)
+  const authData = {
+    email: 'thallesyam1@gmail.com',
+    password: '1234'
+  }
+  const auth = await axios.post(
+    'http://localhost:3000/authentication',
+    authData
+  )
+  const { token } = auth.data
+  const users = await axios.get('http://localhost:3000/users', {
+    headers: {
+      Authorization: `Baerer ${token}`
+    }
+  })
+  const inputEvent = {
+    ownerId: users.data[0].userId,
+    eventName: 'string',
+    description: 'string',
+    eventDate: '2023-07-01T12:00:00',
+    paymentKey: '11',
+    price: 100
+  }
+  await axios.post('http://localhost:3000/event', inputEvent, {
+    headers: {
+      Authorization: `Baerer ${token}`
+    }
+  })
+  const events = await axios.get('http://localhost:3000/events', {
+    headers: {
+      Authorization: `Baerer ${token}`
+    }
+  })
+  const updateData = {
+    address: 'Jardim Itapemirim'
+  }
+  const input = {
+    ownerId: users.data[0].userId,
+    eventId: events.data[0].eventId,
+    updateData
+  }
+  const event = await axios.put(`http://localhost:3000/event`, input, {
+    headers: {
+      Authorization: `Baerer ${token}`
+    }
+  })
+  expect(event.status).toBe(200)
+})
+
+test('Deve atualizar um usuário', async () => {
+  const userUpdate = {
+    userId: '1',
+    name: 'thalles',
+    email: 'thallesyam1@gmail.com',
+    image: 'a',
+    password: '1234'
+  }
+  await axios.post('http://localhost:3000/register', userUpdate)
+  const authData = {
+    email: 'thallesyam1@gmail.com',
+    password: '1234'
+  }
+  const auth = await axios.post(
+    'http://localhost:3000/authentication',
+    authData
+  )
+  const { token } = auth.data
+  const users = await axios.get('http://localhost:3000/users', {
+    headers: {
+      Authorization: `Baerer ${token}`
+    }
+  })
+  const updateData = {
+    image: 'Jardim Itapemirim'
+  }
+  const input = {
+    eventId: users.data[0].eventId,
+    updateData
+  }
+  const user = await axios.put(`http://localhost:3000/user`, input, {
+    headers: {
+      Authorization: `Baerer ${token}`
+    }
+  })
+  expect(user.status).toBe(200)
 })

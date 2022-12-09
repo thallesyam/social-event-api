@@ -7,5 +7,6 @@ export interface EventRepository {
   updateEvent(eventId: string, updateData: any): Promise<void>
   updateSubscribers(eventId: string, user: User): Promise<void>
   findOneById(eventId: string): Promise<Event>
+  findOneBySlug(slug: string): Promise<Event>
   findByUserId(userId: string): Promise<Event[]>
 }

@@ -5,6 +5,7 @@ import {
   EventUpdateStatus,
   Follow,
   GetEvent,
+  GetEventBySlug,
   GetEvents,
   GetUser,
   GetUsers,
@@ -24,6 +25,7 @@ export class RestController {
     readonly getUsers: GetUsers,
     readonly getUser: GetUser,
     readonly getEvent: GetEvent,
+    readonly getEventBySlug: GetEventBySlug,
     readonly getEvents: GetEvents,
     readonly subscribe: EventSubscribe,
     readonly eventUpdateStatus: EventUpdateStatus,
@@ -88,6 +90,16 @@ export class RestController {
       '/event/:id',
       async function (params: any, body: any) {
         const event = await getEvent.execute({ eventId: params.id })
+        return event
+      },
+      auth
+    )
+
+    httpServer.on(
+      'get',
+      '/event/slug/:slug',
+      async function (params: any, body: any) {
+        const event = await getEventBySlug.execute({ slug: params.slug })
         return event
       },
       auth

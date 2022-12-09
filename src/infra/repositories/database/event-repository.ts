@@ -6,6 +6,7 @@ import {
   InvalidEnrollment,
   InvalidEvent
 } from '@/domain/errors'
+import { EventSlugNotFound } from '@/domain/errors/eventSlug-not-found'
 
 export class EventRepositoryDatabase implements EventRepository {
   constructor(readonly prisma: PrismaClient) {}
@@ -74,7 +75,19 @@ export class EventRepositoryDatabase implements EventRepository {
         subscriptions: { include: { User: true } }
       }
     })
+
     if (!event) throw new EventIdNotFound()
+    return event as unknown as Event
+  }
+
+  async findOneBySlug(slug: string): Promise<Event> {
+    const event = await this.prisma.event.findUnique({
+      where: { slug },
+      include: {
+        subscriptions: { include: { User: true } }
+      }
+    })
+    if (!event) throw new EventSlugNotFound()
     return event as unknown as Event
   }
 

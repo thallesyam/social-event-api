@@ -4,6 +4,7 @@ import {
   InvalidEnrollment,
   InvalidEvent
 } from '@/domain/errors'
+import { EventSlugNotFound } from '@/domain/errors/eventSlug-not-found'
 import { EventRepository } from '@/domain/repositories'
 
 export class EventRepositoryMemory implements EventRepository {
@@ -52,6 +53,12 @@ export class EventRepositoryMemory implements EventRepository {
   async findOneById(eventId: string): Promise<Event> {
     const event = this.events.find((event) => event.eventId === eventId)
     if (!event) throw new EventIdNotFound()
+    return event
+  }
+
+  async findOneBySlug(slug: string): Promise<Event> {
+    const event = this.events.find((event) => event.slug === slug)
+    if (!event) throw new EventSlugNotFound()
     return event
   }
 

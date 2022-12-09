@@ -22,9 +22,9 @@ export async function auth(
       response.setHeader('userId', parseUser[0].userId)
       next()
     } else {
-      return response.json({ message: 'Error' }).end()
+      return response.status(401).json({ message: 'Error' }).end()
     }
   } catch (error) {
-    return response.json({ message: 'Error' }).end()
+    return response.status(401).json({ message: 'Error' }).end()
   }
 }

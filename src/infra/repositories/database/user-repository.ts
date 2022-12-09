@@ -59,14 +59,16 @@ export class UserRepositoryDatabase implements UserRepository {
     password: string
   ): Promise<User | undefined> {
     const user = await this.prisma.user.findMany({
-      where: { email, password },
+      where: {
+        AND: [{ email }, { password }]
+      },
       include: {
         followers: true,
         following: { include: { follower: { include: { Event: true } } } },
         subscriptions: true
       }
     })
-    if (!user) throw new UserNotFound()
+    if (!user.length) throw new UserNotFound()
     return user as unknown as User
   }
 

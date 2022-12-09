@@ -43,8 +43,8 @@ export class RestController {
       'get',
       '/user/:id',
       async function (params: any, body: any) {
-        const events = await eventByUser.execute({ userId: params.id })
-        return events
+        const user = await getUser.execute({ userId: params.id })
+        return user
       },
       auth
     )
@@ -54,7 +54,7 @@ export class RestController {
       '/users',
       async function (params: any, body: any) {
         const users = await getUsers.execute()
-        return { users }
+        return users
       },
       auth
     )
@@ -64,7 +64,7 @@ export class RestController {
       '/event/:id',
       async function (params: any, body: any) {
         const event = await getEvent.execute({ eventId: params.id })
-        return { event }
+        return event
       },
       auth
     )
@@ -74,17 +74,7 @@ export class RestController {
       '/events',
       async function (params: any, body: any) {
         const events = await getEvents.execute()
-        return { events }
-      },
-      auth
-    )
-
-    httpServer.on(
-      'get',
-      '/user/:id',
-      async function (params: any, body: any) {
-        const user = await getUser.execute({ userId: params.id })
-        return { user }
+        return events
       },
       auth
     )

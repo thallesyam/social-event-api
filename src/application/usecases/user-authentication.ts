@@ -12,8 +12,6 @@ export class UserAuthentication {
       input.email,
       input.password
     )
-    if (!user) return undefined
-
     const token = await this.generateTokenGateway.sign(
       { user: JSON.stringify(user) },
       {

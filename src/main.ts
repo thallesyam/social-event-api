@@ -11,7 +11,9 @@ import {
   GetUsers,
   GetUserEvent,
   UserAuthentication,
-  UserRegister
+  UserRegister,
+  EventUpdate,
+  UserUpdate
 } from '@/application/usecases'
 import {
   EventRepositoryDatabase,
@@ -45,7 +47,12 @@ async function init() {
   const getEvent = new GetEvent(eventRepository)
   const getEvents = new GetEvents(eventRepository)
   const subscribe = new EventSubscribe(eventRepository, userRepository)
-  const eventUpdate = new EventUpdateStatus(eventRepository, userRepository)
+  const eventUpdateStatus = new EventUpdateStatus(
+    eventRepository,
+    userRepository
+  )
+  const eventUpdate = new EventUpdate(eventRepository, userRepository)
+  const userUpdate = new UserUpdate(userRepository)
   const follow = new Follow(userRepository)
   const authentication = new UserAuthentication(
     userRepository,
@@ -64,7 +71,9 @@ async function init() {
     getEvent,
     getEvents,
     subscribe,
+    eventUpdateStatus,
     eventUpdate,
+    userUpdate,
     follow,
     authentication,
     register

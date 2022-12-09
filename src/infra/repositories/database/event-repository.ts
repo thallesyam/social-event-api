@@ -33,6 +33,13 @@ export class EventRepositoryDatabase implements EventRepository {
     })
   }
 
+  async updateEvent(eventId: string, updateData: any): Promise<void> {
+    await this.prisma.event.update({
+      where: { eventId },
+      data: updateData
+    })
+  }
+
   async findAll(): Promise<Event[]> {
     const events = await this.prisma.event.findMany({
       include: {

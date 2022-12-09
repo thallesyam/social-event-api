@@ -22,6 +22,22 @@ export class EventRepositoryMemory implements EventRepository {
     event.subscriptions.push(user)
   }
 
+  async updateEvent(eventId: string, updateData: any): Promise<void> {
+    if (!eventId) throw new EventIdNotFound()
+    const event = this.events.filter((event) => event.eventId !== eventId)
+    if (!event) throw new EventIdNotFound()
+    this.events = this.events.map((event) => {
+      if (event.eventId === eventId) {
+        return {
+          ...event,
+          ...updateData
+        }
+      }
+
+      return event
+    })
+  }
+
   async updateEventStatus(eventId: string): Promise<void> {
     if (!eventId) throw new EventIdNotFound()
     const event = this.events.find((event) => event.eventId === eventId)

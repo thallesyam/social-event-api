@@ -6,7 +6,7 @@
   "author": "thallesyam <thallesyam@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "npx nodemon src/main",
+    "dev": "yarn build && npx nodemon dist/src/main.js",
     "test": "jest",
     "build": "tsc && tsc-alias",
     "test:watch": "jest --watchAll"

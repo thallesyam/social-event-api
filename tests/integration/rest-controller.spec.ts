@@ -236,6 +236,61 @@ test('Deve testar a busca de um evento', async () => {
   expect(event.data.eventName).toBe(inputEvent.eventName)
 })
 
+test.only('Deve testar a busca de um evento por slug', async () => {
+  const user = {
+    name: 'thalles',
+    email: 'thallesyam1@gmail.com',
+    image: 'a',
+    password: '1234'
+  }
+  await axios.post('http://localhost:3000/register', user)
+  const authData = {
+    email: 'thallesyam1@gmail.com',
+    password: '1234'
+  }
+  const auth = await axios.post(
+    'http://localhost:3000/authentication',
+    authData
+  )
+  const { token } = auth.data
+  const users = await axios.get('http://localhost:3000/users', {
+    headers: {
+      Authorization: `Baerer ${token}`
+    }
+  })
+  console.log(users)
+
+  const inputEvent = {
+    ownerId: users.data[0].userId,
+    eventName: 'string',
+    description: 'string',
+    eventDate: '2023-07-01T12:00:00',
+    paymentKey: '11',
+    price: 100
+  }
+  await axios.post('http://localhost:3000/event', inputEvent, {
+    headers: {
+      Authorization: `Baerer ${token}`
+    }
+  })
+  const events = await axios.get('http://localhost:3000/events', {
+    headers: {
+      Authorization: `Baerer ${token}`
+    }
+  })
+  console.log(events)
+
+  const event = await axios.get(
+    `http://localhost:3000/event/slug/${events.data[0].slug}`,
+    {
+      headers: {
+        Authorization: `Baerer ${token}`
+      }
+    }
+  )
+  expect(event.data.eventName).toBe(inputEvent.eventName)
+})
+
 test('Deve testar a inscrição evento', async () => {
   const user = {
     userId: '1',

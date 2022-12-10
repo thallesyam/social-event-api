@@ -35,6 +35,9 @@ export class RestController {
     readonly authentication: UserAuthentication,
     readonly register: UserRegister
   ) {
+    httpServer.on('get', '/', async function (params: any, body: any) {
+      return { message: 'Hello World' }
+    })
     httpServer.on(
       'post',
       '/event',

@@ -9,7 +9,8 @@
     "dev": "yarn build && npx nodemon dist/src/main.js",
     "test": "jest",
     "build": "tsc && tsc-alias",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "start": "yarn build && node dist/src/main.js"
   },
   "prisma": {
     "schema": "./src/driver/schema.prisma"

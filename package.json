@@ -10,7 +10,7 @@
     "test": "jest",
     "build": "tsc && tsc-alias",
     "test:watch": "jest --watchAll",
-    "start": "node dist/src/main.js"
+    "start": "npx prisma migrate deploy && node dist/src/main.js"
   },
   "prisma": {
     "schema": "./src/driver/schema.prisma"

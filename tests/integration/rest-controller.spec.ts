@@ -29,15 +29,17 @@ test('Deve testar a autenticação de usuário', async () => {
     image: 'a',
     password: '1234'
   }
-  await axios.post('http://localhost:3000/register', user)
+  await axios.post('https://event-server-db.fly.dev/register', user)
   const input = {
     email: 'thallesyam1@gmail.com',
     password: '1234'
   }
   const response = await axios.post(
-    'http://localhost:3000/authentication',
+    'https://event-server-db.fly.dev/authentication',
     input
   )
+  console.log(response)
+
   const { token } = response.data
   expect(token).toBeTruthy()
 })

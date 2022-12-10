@@ -81,7 +81,7 @@ async function init() {
     authentication,
     register
   )
-  httpServer.listen(3000)
+  httpServer.listen(Number(process.env.PORT) || 3000)
 }
 
 init()

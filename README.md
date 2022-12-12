@@ -38,6 +38,8 @@
 
 Esse é um projeto pessoal desenvolvido com o intuito de praticar o TDD e a Clean Architecture.
 
+Obs: É o meu primerio projeto real utilizando essa metodologia de desenvolvimento então nem todos os conceitos foram aplicados, mas estou praticando e vou aplicando os conceitos aos poucos nesse repositório
+
 ## 🚀 Tecnologias e ferramentas utilizadas
 
 Este projeto foi desenvolvido com as seguintes tecnologias e ferramentas:
